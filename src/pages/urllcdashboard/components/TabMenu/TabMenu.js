@@ -77,14 +77,6 @@ export default function TabMenu() {
         </AccordionSummary>
         <AccordionDetails>
           <TrainingForm></TrainingForm>
-          {/* <div className={classes.wrapper}>
-            <Fab aria-label="save" color="primary" className={buttonClassnameSearch}
-              // onClick={handleButtonClickFilter}
-            >
-              {successSearch ? <CheckIcon /> : <SearchIcon />}
-            </Fab>
-            {loadingSearch && <CircularProgress size={68} className={classes.fabProgress} />}
-          </div> */}
         </AccordionDetails>
       </Accordion>
     </div>

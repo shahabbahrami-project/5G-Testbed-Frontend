@@ -1,4 +1,5 @@
 import React from 'react';
+import TabTable from './components/Table/TabTable';
 import TabMenu from './components/TabMenu/TabMenu';
  
 function UrllcDashboard() {
@@ -7,6 +8,7 @@ function UrllcDashboard() {
   return(
       <div>
             <TabMenu></TabMenu>
+            <TabTable></TabTable>
       </div>
   );
   

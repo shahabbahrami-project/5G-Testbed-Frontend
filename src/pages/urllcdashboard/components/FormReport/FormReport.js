@@ -19,18 +19,18 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 
 
-const FormFilterSite = (props) => {
+const FormReport = (props) => {
   const classes = useStyles();
 
   const handleDateChangeFrom = (date) => {
     try {
       const dateformat = date.toISOString();
-      const DateFromNew = { ...props.filterSite, VisitFrom: dateformat };
-      props.setFilterSite(DateFromNew);
+      const DateFromNew = { ...props.reportFilter, ReportFrom: dateformat };
+      props.setReportFilter(DateFromNew);
     }
     catch (err) {
-      const DateFromNew = { ...props.filterSite, VisitFrom: null };
-      props.setFilterSite(DateFromNew);
+      const DateFromNew = { ...props.reportFilter, ReportFrom: null };
+      props.setReportFilter(DateFromNew);
     }
 
   };
@@ -39,13 +39,13 @@ const FormFilterSite = (props) => {
   const handleDateChangeTo = (date) => {
     try {
       const dateformat = date.toISOString();
-      const DateToNew = { ...props.filterSite, VisitTo: dateformat };
-      props.setFilterSite(DateToNew);
+      const DateToNew = { ...props.reportFilter, ReportTo: dateformat };
+      props.setReportFilter(DateToNew);
     }
     catch (err) {
 
-      const DateToNew = { ...props.filterSite, VisitTo: null };
-      props.setFilterSite(DateToNew);
+      const DateToNew = { ...props.reportFilter, ReportTo: null};
+      props.setReportFilter(DateToNew);
     }
 
   };
@@ -53,30 +53,6 @@ const FormFilterSite = (props) => {
 
 
 
-  const handleChangeName = (event) => {
-    const NameNew = { ...props.filterSite, siteName: event.target.value };
-    props.setFilterSite(NameNew);
-  };
-
-  const handleChangeCity = (event) => {
-    const CityNew = { ...props.filterSite, city: event.target.value };
-    props.setFilterSite(CityNew);
-  };
-
-  const handleChangeWellorSurface = (event) => {
-    const wellOrSurfaceNew = { ...props.filterSite, wellOrSurface: event.target.value };
-    props.setFilterSite(wellOrSurfaceNew);
-  };
-
-  const handleChangeWaterorWaste = (event) => {
-    const waterOrWasteNew = { ...props.filterSite, waterOrWaste: event.target.value };
-    props.setFilterSite(waterOrWasteNew);
-  };
-
-  const handleChangeStatus = (event) => {
-    const statusNew = { ...props.filterSite, status: event.target.value};
-    props.setFilterSite(statusNew);
-  };
 
 
   return (
@@ -87,7 +63,7 @@ const FormFilterSite = (props) => {
 
 
 
-        <FormControl className={classes.textField0} variant="outlined">
+        {/* <FormControl className={classes.textField0} variant="outlined">
           <InputLabel htmlFor="SiteName" classes={{ root: classes.textField1, shrink: classes.textField3 }} >Site Name</InputLabel>
           <OutlinedInput
             classes={{ root: classes.textField2 }}
@@ -113,10 +89,10 @@ const FormFilterSite = (props) => {
             label={"City"}
 
           />
-        </FormControl>
+        </FormControl> */}
 
 
-        <FormControl className={classes.textField0} variant="outlined">
+        {/* <FormControl className={classes.textField0} variant="outlined">
           <MuiPickersUtilsProvider utils={DateFnsUtils} className={classes.datePickerText}>
             <KeyboardDatePicker
               classes={{ root: classes.datePickerText2 }}
@@ -125,7 +101,7 @@ const FormFilterSite = (props) => {
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="Last Visit (From)"
+              label="From"
               value={props.filterSite.VisitFrom}
               onChange={handleDateChangeFrom}
               KeyboardButtonProps={{
@@ -133,12 +109,12 @@ const FormFilterSite = (props) => {
               }}
             />
           </MuiPickersUtilsProvider>
-        </FormControl>
+        </FormControl> */}
       </div>
 
-      <div style={{ float: 'left', width: '18%', marginBottom: '2rem' }}>
+      <div style={{ float: 'left', width: '30%', marginBottom: '-1rem' }}>
 
-        <FormControl variant="outlined" className={classes.textField0}  >
+        {/* <FormControl variant="outlined" className={classes.textField0}  >
           <InputLabel id="demo-simple-select-outlined-label" classes={{ root: classes.textField1, shrink: classes.textField3 }} >Water or Waste</InputLabel>
           <Select
             classes={{ root: classes.selectField2 }}
@@ -148,7 +124,7 @@ const FormFilterSite = (props) => {
             onChange={handleChangeWaterorWaste}
             label="Water or Waste"
           >
-            <MenuItem value="all">
+            <MenuItem value="All">
               <em>All</em>
             </MenuItem>
             <MenuItem value={"Water"}>Water</MenuItem>
@@ -167,14 +143,36 @@ const FormFilterSite = (props) => {
             onChange={handleChangeWellorSurface}
             label="Well or Surface"
           >
-            <MenuItem value="all">
+            <MenuItem value="All">
               <em>All</em>
             </MenuItem>
             <MenuItem value={"Well"}>Well</MenuItem>
             <MenuItem value={"Surface"}>Surface</MenuItem>
 
           </Select>
+        </FormControl> */}
+        <FormControl className={classes.textField0} variant="outlined">
+          <MuiPickersUtilsProvider utils={DateFnsUtils} className={classes.datePickerText}>
+            <KeyboardDatePicker
+              classes={{ root: classes.datePickerText2 }}
+              disableToolbar
+              variant="outline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="From"
+              value={props.reportFilter.ReportFrom}
+              onChange={handleDateChangeFrom}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+          </MuiPickersUtilsProvider>
         </FormControl>
+
+      </div>
+
+      <div style={{ float: 'left', width: '30%', marginBottom:'-1rem' }}>
 
         <FormControl className={classes.textField0} variant="outlined">
           <MuiPickersUtilsProvider utils={DateFnsUtils} className={classes.datePickerText}>
@@ -185,8 +183,8 @@ const FormFilterSite = (props) => {
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="Last Visit (To)"
-              value={props.filterSite.VisitTo}
+              label="To"
+              value={props.reportFilter.ReportTo}
               onChange={handleDateChangeTo}
               KeyboardButtonProps={{
                 'aria-label': 'change date',
@@ -194,34 +192,13 @@ const FormFilterSite = (props) => {
             />
           </MuiPickersUtilsProvider>
         </FormControl>
-      </div>
-
-      <div style={{ float: 'left', width: '18%', marginBottom: '2rem' }}>
-
-        <FormControl variant="outlined" className={classes.textField0}  >
-          <InputLabel id="demo-simple-select-outlined-label" classes={{ root: classes.textField1, shrink: classes.textField3 }}  >Status</InputLabel>
-          <Select
-            classes={{ root: classes.selectField2 }}
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={props.filterSite.status}
-            onChange={handleChangeStatus}
-            label="Status"
-          >
-            <MenuItem value={"all"}>
-              <em>All</em>
-            </MenuItem>
-            <MenuItem value={"OK"}>Green</MenuItem>
-            <MenuItem value={"notOK"}>Red</MenuItem>
-          </Select>
-        </FormControl>
 
       </div>
-      <div style={{ float: 'left', width: '40%', marginBottom: '1vw', }}>
+      {/* <div style={{ float: 'left', width: '40%', marginBottom: '1vw', }}>
         <img src={search} alt="logo" style={{ height: '18vw', marginLeft: '6vw', marginBottom: '-3vw' }} />
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default FormFilterSite;
+export default FormReport;

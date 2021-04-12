@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 export default makeStyles(theme => ({
 containerstyle:{
   float: 'left', 
-  width: '18%',
+  width: '22%',
    marginBottom: '2rem'
 },
 
@@ -147,7 +147,7 @@ rootText:{
     // MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd
   },
   textField0: {
-    width: '95%',
+    width: '70%',
     marginBottom: '0.7vw',
     marginTop: '0.7vw',
   },

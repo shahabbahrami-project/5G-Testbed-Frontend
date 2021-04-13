@@ -23,12 +23,13 @@ import {
 } from "@material-ui/core";
 import { Icon } from "leaflet";
 import iconmarker from './markers/markernotadd.svg'
+import LinearWithValueLabel from "./ProgressBar/ProgressBar";
 const custommarker = new Icon({
     iconUrl: iconmarker,
     iconSize: [30, 30],
     iconAnchor: [15, 28],
     popupAnchor: [0, -30]
-  });
+});
 
 
 
@@ -36,12 +37,14 @@ const TrainingForm = () => {
     const classes = useStyles();
     var [isLoading, setIsLoading] = useState(false);
 
-    var [trainTmp, setTrainTmp] = useState({ name: "", numberofUsers: "", targetSNR:"", numerology:"", reservedBandwidth:"", sharedBandwidth:"",
-                                             channelGainShadowParam1:"", channelGainShadowParam2:"", channelGainShadowParam3:"",
-                                             power:"", trafficDist:"Poisson", trafficParam1:"", trafficParam2:""})
+    var [trainTmp, setTrainTmp] = useState({
+        name: "", numberofUsers: "", targetSNR: "", numerology: "", reservedBandwidth: "", sharedBandwidth: "",
+        channelGainShadowParam1: "", channelGainShadowParam2: "", channelGainShadowParam3: "",
+        power: "", trafficDist: "Poisson", trafficParam1: "", trafficParam2: ""
+    })
 
-    var [longlatTmp, setLongLatTmp]= useState({long:"", lat:""})
-    var [marker, setMarker]=useState([])
+    var [longlatTmp, setLongLatTmp] = useState({ long: "", lat: "" })
+    var [marker, setMarker] = useState([])
 
     const handleChangeName = (event) => {
         const New = { ...trainTmp, name: event.target.value };
@@ -49,7 +52,7 @@ const TrainingForm = () => {
     };
 
     const handleChangeNumberOfUsers = (event) => {
-        const New = { ...trainTmp, numberofUsers: event.target.value};
+        const New = { ...trainTmp, numberofUsers: event.target.value };
         setTrainTmp(New);
     };
 
@@ -93,27 +96,27 @@ const TrainingForm = () => {
         setTrainTmp(New);
     };
 
-    const handleChangeTrafficParam1= (event) => {
+    const handleChangeTrafficParam1 = (event) => {
         const New = { ...trainTmp, trafficParam1: event.target.value };
         setTrainTmp(New);
     };
 
-    const handleChangeTrafficParam2= (event) => {
+    const handleChangeTrafficParam2 = (event) => {
         const New = { ...trainTmp, trafficParam2: event.target.value };
         setTrainTmp(New);
     };
 
-    const handleChangeLong= (event) => {
+    const handleChangeLong = (event) => {
         const New = { ...longlatTmp, long: event.target.value };
         setLongLatTmp(New);
     };
 
 
-    const handleChangeLat= (event) => {
+    const handleChangeLat = (event) => {
         const New = { ...longlatTmp, lat: event.target.value };
         setLongLatTmp(New);
     };
-    
+
     //   const handleDateChangeFrom = (date) => {
     //     try {
     //       const dateformat = date.toISOString();
@@ -129,26 +132,26 @@ const TrainingForm = () => {
 
     function AddMarkerToClick() {
         const map = useMapEvents({
-          click(e) {
-              if (e.latlng){
-                setMarker([e.latlng])
-                const New = { ...longlatTmp, lat: e.latlng.lat, long: e.latlng.lng };
-                setLongLatTmp(New);
-              }
-              console.log(e.latlng)
-            
-          },
+            click(e) {
+                if (e.latlng) {
+                    setMarker([e.latlng])
+                    const New = { ...longlatTmp, lat: e.latlng.lat, long: e.latlng.lng };
+                    setLongLatTmp(New);
+                }
+                console.log(e.latlng)
+
+            },
         })
         return (
-          <>
-            { marker.map(marker =>
-              <Marker position={marker} icon={custommarker}>
-              </Marker>
-            )
-            }
-          </>
+            <>
+                { marker.map(marker =>
+                    <Marker position={marker} icon={custommarker}>
+                    </Marker>
+                )
+                }
+            </>
         )
-      }
+    }
 
     return (
 
@@ -204,6 +207,32 @@ const TrainingForm = () => {
                         placeholder={"Unit is (W)"}
                         label={"Power"}
                     />
+                </FormControl>
+
+                <FormControl className={classes.textField0} variant="outlined" style={{ marginTop: '5vw' }}>
+                    <div className={classes.creatingButtonContainer}>
+                        {isLoading ? (
+                            <CircularProgress size={26} />
+                        ) : (
+                            <Button
+                                style={{ fontSize: '0.85vw', height: '2.7vw' }}
+                                size="large"
+                                variant="contained"
+                                color="primary"
+                                fullWidth
+                            // className={classes.createAccountButton}
+                            //   onClick={() => handleChangePassword_Step3(
+                            //     securityCode,
+                            //     passwordReg,
+                            //     confPasswordReg,
+                            //     setIsLoading,
+                            //     setError)}
+                            >
+                                Start Training
+                            </Button>
+                        )}
+                    </div>
+
                 </FormControl>
 
             </div>
@@ -267,10 +296,11 @@ const TrainingForm = () => {
                             <CircularProgress size={26} />
                         ) : (
                             <Button
-                                style={{ fontSize: '0.85vw', height: '2.7vw' }}
+                                style={{ fontSize: '0.85vw', height: '2.7vw', backgroundColor: "#022b54" }}
+                                classes={{ contained: classes.saveButton }}
                                 size="large"
                                 variant="contained"
-                                color="primary"
+                                // color="primary"
                                 fullWidth
                             // className={classes.createAccountButton}
                             //   onClick={() => handleChangePassword_Step3(
@@ -280,7 +310,7 @@ const TrainingForm = () => {
                             //     setIsLoading,
                             //     setError)}
                             >
-                                Start Algorithm Training
+                                Stop Training
                             </Button>
                         )}
                     </div>
@@ -326,6 +356,33 @@ const TrainingForm = () => {
                         placeholder={"Rayleigh Fading (σ)"}
                         label={"Channel Gain Parameter 3"}
                     />
+                </FormControl>
+
+                <FormControl className={classes.textField0} variant="outlined" style={{ marginTop: '9.4vw' }}>
+                    <div className={classes.creatingButtonContainer}>
+                        {isLoading ? (
+                            <CircularProgress size={26} />
+                        ) : (
+                            <Button
+                                style={{ fontSize: '0.85vw', height: '2.7vw', backgroundColor: "#02542b" }}
+                                classes={{ contained: classes.saveButton }}
+                                size="large"
+                                variant="contained"
+                                // color="#02542b"
+                                fullWidth
+                            // className={classes.createAccountButton}
+                            //   onClick={() => handleChangePassword_Step3(
+                            //     securityCode,
+                            //     passwordReg,
+                            //     confPasswordReg,
+                            //     setIsLoading,
+                            //     setError)}
+                            >
+                                Save Trained Model
+                            </Button>
+                        )}
+                    </div>
+
                 </FormControl>
             </div>
 
@@ -380,7 +437,10 @@ const TrainingForm = () => {
                 </div>
             </div>
 
+
         </div>
+
+
 
 
     );

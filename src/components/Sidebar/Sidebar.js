@@ -18,6 +18,7 @@ import { withRouter } from "react-router-dom";
 import classNames from "classnames";
 import AccountTreeRoundedIcon from '@material-ui/icons/AccountTreeRounded';
 import PinDropIcon from '@material-ui/icons/PinDrop';
+import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 // styles
 import useStyles from "./styles";
 
@@ -33,7 +34,7 @@ import {
 } from "../../context/LayoutContext";
 
 const structure = [
-  { id: -3, label: "Sites", link: "/app/urllcdash", icon: <PinDropIcon /> },
+  { id: -3, label: "URLLC Dashboard", link: "/app/urllcdash", icon: <DeveloperBoardIcon /> },
   // { id: -4, label: "Systems", link: "/app/systems", icon: <AccountTreeRoundedIcon /> },
   // {
   //   id: -2,

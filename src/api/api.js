@@ -10,6 +10,18 @@ export const getAxiosInstanceAuth = () => {
     });
 };
 
+export const getAxiosInstanceTestBedApi = () => {
+    const token=localStorage.getItem('id_token')
+    return Axios.create({
+        baseURL: "http://127.0.0.1:8005/",
+        headers: {
+            Authorization: `Token ${token}`,
+            Accept: "application/json, text/plain, */*",
+            "Content-Type": "application/json",
+        }
+    });
+};
+
 
 export const getAxiosInstanceApi = () => {
     const token=localStorage.getItem('id_token')

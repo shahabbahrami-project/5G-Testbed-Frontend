@@ -13,7 +13,9 @@ import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import SearchIcon from '@material-ui/icons/Search';
 import TrainingForm from '../TrainingForm/TrainingForm';
-
+import LinearWithValueLabel from '../TrainingForm/ProgressBar/ProgressBar';
+import { Grid } from "@material-ui/core"
+import LineStyleIcon from '@material-ui/icons/LineStyle';
 export default function TabMenu() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
@@ -72,11 +74,19 @@ export default function TabMenu() {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <SearchIcon />
-          <Typography className={classes.heading}>Training Sample Generation </Typography>
+          <LineStyleIcon />
+          <Typography className={classes.heading}>Training Sample Generation for URLLC Slice </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <TrainingForm></TrainingForm>
+        <Grid container direction={'column'} >
+        <TrainingForm></TrainingForm>
+                     
+     
+                     <LinearWithValueLabel></LinearWithValueLabel>
+
+          </Grid>
+
+           
         </AccordionDetails>
       </Accordion>
     </div>

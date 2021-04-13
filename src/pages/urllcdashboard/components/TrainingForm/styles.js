@@ -198,5 +198,8 @@ rootText:{
     padding:'0.9vw 1vw',
     fontSize: '1vw',
   },
+  saveButton:{
+    color:"white"
+  }
 
 }));

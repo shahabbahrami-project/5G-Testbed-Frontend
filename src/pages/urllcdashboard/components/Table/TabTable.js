@@ -29,6 +29,7 @@ import {
   MuiThemeProvider,
   withStyles
 } from "@material-ui/core/styles";
+import { getURLLCTrainInfo } from '../../../../api/api_URLLC';
 
 
 
@@ -52,6 +53,7 @@ export default function TabTable(props2) {
   const [successSearchExcel, setSuccessSearchExcel] = React.useState(false);
   const [loadingSearchPrint, setLoadingSearchPrint] = React.useState(false);
   const [successSearchPrint, setSuccessSearchPrint] = React.useState(false);
+  const [report, setReport]=React.useState([])
   const handleOpen = (e) => {
     props2.setOpenReportModal(true);
   };
@@ -86,22 +88,23 @@ export default function TabTable(props2) {
   const handleButtonClickRefreshReport = () => {
     setSuccessRefreshReport(false);
     setLoadingRefreshReport(true);
-    // getReports(props2.reportFilter, (isOk, data) => {
-    //   if (!isOk) {
-    //     setSuccessRefreshReport(false);
-    //     setLoadingRefreshReport(false);
-    //     // return toast.error("Server is not responding!");
-    //     return toast.error("Could not get report!");
-    //   } else {
-    //     props2.setReport(data);
-    //     setSuccessRefreshReport(true);
-    //     setTimeout(function () {
-    //       setSuccessRefreshReport(false);
-    //       setLoadingRefreshReport(false);
-    //     }, 500);
-    //   }
-    // }
-    // )
+    getURLLCTrainInfo((isOk, data) => {
+      if (!isOk) {
+        setSuccessRefreshReport(false);
+        setLoadingRefreshReport(false);
+        // return toast.error("Server is not responding!");
+        return toast.error("Could not get report!");
+      } else {
+        setReport(data);
+        console.log(data)
+        setSuccessRefreshReport(true);
+        setTimeout(function () {
+          setSuccessRefreshReport(false);
+          setLoadingRefreshReport(false);
+        }, 500);
+      }
+    }
+    )
   };
   function change(n) {
     return n > 9 ? "" + n : "0" + n;
@@ -175,6 +178,14 @@ export default function TabTable(props2) {
     // }
     // )
   };
+
+  function CreateReport(OriginalReport) {
+    const ModifiedReport= OriginalReport.map(item=>[item.name, item.numberofUsers, item.numerology, item.TargetSNR, item.reservedBandwidth, item.sharedBandwidth, 
+                                                    item.channelGainFadeParam1, item.channelGainFadeParam2,item.channelGainShadowParam1, item.power, item.TrafficParam1, item.created_at, item.status])
+    
+    console.log(ModifiedReport)
+    return ModifiedReport;   // The function returns the product of p1 and p2
+  }
   const handleButtonClickPrint = () => {
     setSuccessSearchPrint(false);
     setLoadingSearchPrint(true);
@@ -335,7 +346,7 @@ export default function TabTable(props2) {
       MUIDataTableBodyCell: {
         root: {
           backgroundColor: "#FFFFF",
-          fontSize:'0.7vw'
+          fontSize:'0.75vw'
         }
       },
       MUIDataTableHeadCell: {
@@ -363,16 +374,16 @@ export default function TabTable(props2) {
           <Typography className={classes.heading}>Reports</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {/* <FormFilterSite {...props2}></FormFilterSite> */}
+
           <Grid container direction={'column'} >
 
             <Grid item style={{ marginTop: '0vh' }}>
-
+            <FormReport></FormReport>
               {/* <FormReport {...props2}></FormReport> */}
               <div className={classes.wrapper}>
                 <Fab
                   aria-label="save"
-                  style={{ backgroundColor: '#ff9800', color: 'white', width: '2.5vw', height: '2.5vw', borderRadius: '100%' }}
+                  style={{ backgroundColor: '#02542b', color: 'white', width: '2.5vw', height: '2.5vw', borderRadius: '100%' }}
                   className={buttonClassnameSearch}
                   onClick={handleButtonClickPrint}
                 >
@@ -383,7 +394,7 @@ export default function TabTable(props2) {
               <div className={classes.wrapper}>
                 <Fab
                   aria-label="excel"
-                  style={{ backgroundColor: '#4caf50', color: 'white', width: '2.5vw', height: '2.5vw', borderRadius: '100%' }}
+                  style={{ backgroundColor: '#022b54', color: 'white', width: '2.5vw', height: '2.5vw', borderRadius: '100%' }}
 
                   className={buttonClassnameSearch}
                   onClick={handleButtonClickExcel}
@@ -425,7 +436,7 @@ export default function TabTable(props2) {
             <MuiThemeProvider theme={getMuiTheme()}>
               <MUIDataTable
                 title={"Table of Trained Models "}
-                data={props2.report}
+                data={CreateReport(report)}
                 options={{
                   filter: true,
                   sort: true,
